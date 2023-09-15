@@ -1,0 +1,15 @@
+models:
+  - name: stg_postgres__addresses
+    description: Contains address, zipcode, state and country.
+  - name: stg_postgres__events
+    description: Contains event data about digital activity of the user.
+  - name: stg_postgres__orders
+    description: Contains all order information.
+  - name: stg_postgres__products
+    description: Contains details about individual products.
+  - name: stg_postgres__promos
+    description: Contains details about promos applied to orders.
+  - name: stg_postgres__users
+    description: Contains names and contact information about the user.
+  - name: stg_postgres__order_items
+    description: Contains details about quantity of products ordered in each order.

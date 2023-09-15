@@ -1,0 +1,35 @@
+version: 2
+
+sources:
+
+  - name: postgres
+    schema: public # this is the schema our raw data lives in
+    database: raw # this is the name of the database that our source data lives in
+
+    quoting:
+      database: false
+      schema: false
+      identifier: false
+
+    tables: # this is where we define table metadata (name, description, load timestamps)
+      - name: users 
+        loaded_at_field: created_at
+        description: Contains names and contact information about the user
+      - name: addresses 
+        loaded_at_field: created_at
+        description: Contains detailed address information about the user
+      - name: events 
+        loaded_at_field: created_at
+        description: Contains event data about digital activity of the user
+      - name: orders 
+        loaded_at_field: created_at
+        description: Contains all order information
+      - name: products 
+        loaded_at_field: created_at
+        description: Contains details about individual products
+      - name: order_items 
+        loaded_at_field: created_at
+        description: Contains details about quantity of products ordered in each order
+      - name: promos 
+        loaded_at_field: created_at
+        description: Contains details about promos applied to orders
