@@ -1,0 +1,12 @@
+models:
+  - name: fact_users_orders
+    description: Contais information about order history per user
+    columns:
+      - name: user_id
+        tests:
+          - not_null
+          - unique
+      - name: count_orders
+          - positive_values
+      - name: aov
+          - positive_values

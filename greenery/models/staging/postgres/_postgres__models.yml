@@ -1,15 +1,51 @@
 models:
   - name: stg_postgres__addresses
     description: Contains address, zipcode, state and country.
+    columns:
+      - name: address_id
+        tests:
+          - not_null
+          - unique
+
   - name: stg_postgres__events
     description: Contains event data about digital activity of the user.
+ 
   - name: stg_postgres__orders
     description: Contains all order information.
+    columns:
+      - name: order_id
+        tests:
+          - not_null
+          - unique
+      - name: status
+        tests:
+          - accepted_values:
+              values: ['delivered', 'shipped', 'preparing']
+ 
   - name: stg_postgres__products
     description: Contains details about individual products.
+    columns:
+      - name: product_id
+        tests:
+          - not_null
+          - unique
+ 
   - name: stg_postgres__promos
     description: Contains details about promos applied to orders.
+    columns:
+      - name: promo_id
+        tests:
+          - not_null
+          - unique
+ 
   - name: stg_postgres__users
     description: Contains names and contact information about the user.
+    columns:
+      - name: user_id
+        tests:
+          - not_null
+          - unique
+
   - name: stg_postgres__order_items
     description: Contains details about quantity of products ordered in each order.
+
