@@ -1,4 +1,29 @@
 # Analytics engineering with dbt
+## Week 3 - Answers
+1. What is our overall conversion rate?  
+`select sum(order_count) / sum(session_count) from fact_product_traffic_orders;`  
+78.3%
+3. What is our conversion rate by product?
+
+`select product_id, sum(order_count) / sum(session_count) from fact_product_traffic_orders group by 1;`  
+Conversion rate examples by product:  
+<img width="730" alt="image" src="https://github.com/DariaAlekseeva/course-dbt/assets/9542478/43dede7b-13d0-4e39-b040-9d181e59cdba">
+
+4. A question to think about: Why might certain products be converting at higher/lower rates than others? We don't actually have data to properly dig into this, but we can make some hypotheses. 
+* The factors could be price, deals/promos, product reviews, product ranking on the page, has/doesn't have a photo, sponsored items etc.
+4. I added a post hook to your project to apply grants to the role “reporting”. 
+5. I created `event_processor` macros that iterates over events from a given table and column and creates a column per event with a boolean value that flags if user performed given action.
+Then I applied it in my model `fact_product_funnel.sql`
+6. I installed `dbt-expectations` package (i.e. dbt-utils, ) and used dbt_expectations.expect_column_values_to_be_in_set macro on `event_type` column from `stg_postgres__events` model to check that we get all required events.
+7. Which products had their inventory change from week 2 to week 3?
+* `4cda01b9-62e2-46c5-830f-b7f262a58fb1`	    Pothos
+* `689fb64e-a4a2-45c5-b9f2-480c2155624d`	    Bamboo
+* `55c6a062-5f4a-4a8b-a8e5-05ea5e6715a3`	    Philodendron
+* `be49171b-9f72-4fc9-bf7a-9a52e259836b`	    Monstera
+* `fb0e8be7-5ac4-4a76-a1fa-2cc4bf0b2d80`	    String of pearls
+* `b66a7143-c18a-43bb-b5dc-06bb5d1d3160`	    ZZ Plant
+  <img width="1344" alt="image" src="https://github.com/DariaAlekseeva/course-dbt/assets/9542478/04b2f37c-d185-4571-ba05-7554c4f355d7">
+  
 ## Week 2 - Answers
 ***1. What is our user repeat rate? Repeat Rate = Users who purchased 2 or more times / users who purchased***
 * 77% in we include only orders with status = 'delivered'
