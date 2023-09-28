@@ -9,6 +9,11 @@ models:
 
   - name: stg_postgres__events
     description: Contains event data about digital activity of the user.
+    columns:
+      - name: event_type
+        tests:
+          - dbt_expectations.expect_column_values_to_be_in_set:
+              value_set: ['page_view','add_to_cart','checkout', 'package_shipped']
  
   - name: stg_postgres__orders
     description: Contains all order information.
