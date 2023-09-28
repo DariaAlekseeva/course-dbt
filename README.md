@@ -3,13 +3,13 @@
 1. What is our overall conversion rate?  
 `select sum(order_count) / sum(session_count) from fact_product_traffic_orders;`  
 78.3%
-3. What is our conversion rate by product?
+2. What is our conversion rate by product?
 
 `select product_id, sum(order_count) / sum(session_count) from fact_product_traffic_orders group by 1;`  
 Conversion rate examples by product:  
 <img width="730" alt="image" src="https://github.com/DariaAlekseeva/course-dbt/assets/9542478/43dede7b-13d0-4e39-b040-9d181e59cdba">
 
-4. A question to think about: Why might certain products be converting at higher/lower rates than others? We don't actually have data to properly dig into this, but we can make some hypotheses. 
+3. A question to think about: Why might certain products be converting at higher/lower rates than others? We don't actually have data to properly dig into this, but we can make some hypotheses. 
 * The factors could be price, deals/promos, product reviews, product ranking on the page, has/doesn't have a photo, sponsored items etc.
 4. I added a post hook to your project to apply grants to the role “reporting”. 
 5. I created `event_processor` macros that iterates over events from a given table and column and creates a column per event with a boolean value that flags if user performed given action.
