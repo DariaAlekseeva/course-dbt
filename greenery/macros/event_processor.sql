@@ -8,7 +8,7 @@ set event_types = dbt_utils.get_column_values(
 -%} 
     
 {%- for event in event_types %}
-    sum(case when event_type = '{{event}}' then 1 else 0 end) as is_{{event}}
+   , sum(case when event_type = '{{event}}' then 1 else 0 end) as is_{{event}}
 {%- endfor %}
 
 {% endmacro %} 
