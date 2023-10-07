@@ -1,0 +1,15 @@
+version: 2
+
+exposures:  
+  - name: Product Funnel Dashboard
+    description: >
+      Models that are critical to our product funnel dashboard
+    type: dashboard
+    maturity: low
+    url: https://app.sigmacomputing.com/corise-dbt/workbook/Product-Funnel-Dashboard-2uAsf5gohuhIvDBu8TS91G/edit?:nodeId=7NBPNwEvKO
+    owner:
+      name: Daria A
+      email: daria@greenery.com
+    depends_on:
+      - ref('fact_product_funnel')
+      - ref('fact_product_user_activity')
