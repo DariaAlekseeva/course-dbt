@@ -50,7 +50,13 @@ group by all;
 
 <img width="1697" alt="image" src="https://github.com/DariaAlekseeva/course-dbt/assets/9542478/c6399cc2-8643-402f-9146-843c3659216c">
 
-
+4. Production/Scheduled dbt Run Setup
+Steps:
+* Environment Setup: Set up a production environment separate from the development environment to ensure stability and reliability.
+* Orchestration Tool: Select an orchestration tool like Apache Airflow, Prefect, or dbt Cloud to schedule and monitor dbt runs. These tools support scheduling, logging, and alerting, which are crucial for production jobs.
+* Scheduling: Define a schedule for dbt runs based on your data update frequency. For daily updated data, schedule dbt jobs to run nightly, ensuring fresh and reliable data is available every morning.
+* Metadata Logging: Capture and log metadata like run status, duration, and row count changes. This metadata is crucial for monitoring data pipeline health and debugging issues. Also we can monitor freshness of data. 
+* Alerts & Monitoring: Set up alerting mechanisms for job failures or significant data changes and model tests using the logged metadata to quickly identify and resolve issues.
 
 ## Week 3 - Answers
 1. What is our overall conversion rate?  
