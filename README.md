@@ -1,4 +1,57 @@
 # Analytics engineering with dbt
+## Week 4 - Answers
+1. Which products had their inventory change from week 3 to week 4?
+```
+select *
+from inventory_snapshot
+where date(dbt_valid_to) = '2023-10-07';
+```
+* These products has update in inventory.
+<img width="442" alt="image" src="https://github.com/DariaAlekseeva/course-dbt/assets/9542478/c520594f-ff54-462c-868e-a8259fbe1126">
+
+1.1. Now that we have 3 weeks of snapshot data, can you use the inventory changes to determine which products had the most fluctuations in inventory?  
+   
+```
+select product_id
+, name
+, count(1) 
+from inventory_snapshot
+group by 1,2
+```
+   * These products changed the inventory 3 times. The rest of products only 1 time.
+   <img width="594" alt="image" src="https://github.com/DariaAlekseeva/course-dbt/assets/9542478/bbd32da9-51a3-4299-8a22-112f4832a7db">
+
+1.2. Did we have any items go out of stock in the last 3 weeks? 
+```
+select *
+from inventory_snapshot
+where inventory = 0;
+```
+* These items had inventory 0.
+
+<img width="669" alt="image" src="https://github.com/DariaAlekseeva/course-dbt/assets/9542478/7ab4b707-fef9-4c24-991b-528dc8e16339">
+
+2. How are our users moving through the product funnel? Which steps in the funnel have largest drop off points?
+```
+select 
+date
+, sum(is_page_view)
+, sum(is_add_to_cart)
+, sum(is_checkout)
+, sum(is_add_to_cart) / NULLIFZERO(sum(is_page_view)) page_view_to_add_cart_rate
+, sum(is_checkout) / NULLIFZERO(sum(is_add_to_cart)) add_to_cart_to_checkout_rate
+from fact_product_funnel
+group by all;
+```
+* `page_view_to_add_cart_rate` has higher rate (based on a few observed days) `add_to_cart_to_checkout_rate`. Surprisingly, on 2 days both rates have either no data or very small count of sessions. Would need to investigate that further. 
+<img width="1265" alt="image" src="https://github.com/DariaAlekseeva/course-dbt/assets/9542478/e6824f0c-290e-4a5a-8e5c-d76be289f1ad">
+
+3. `exposures.yml` file was created. [Product Funnel Dashboard](https://app.sigmacomputing.com/corise-dbt/workbook/Product-Funnel-Dashboard-2uAsf5gohuhIvDBu8TS91G/edit?:nodeId=7NBPNwEvKO) (v1) was created in Sigma.
+
+<img width="1697" alt="image" src="https://github.com/DariaAlekseeva/course-dbt/assets/9542478/c6399cc2-8643-402f-9146-843c3659216c">
+
+
+
 ## Week 3 - Answers
 1. What is our overall conversion rate?  
 * Created `fact_daily_conversion` model to answer this question. However the relusts are a bit puzzling. Conversion is unlikely to over 1 for a given day. Would investigate this furter and add test to monitor the value.  
